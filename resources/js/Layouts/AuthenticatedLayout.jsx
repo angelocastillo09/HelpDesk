@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
+import FlashMessage from '@/Components/FlashMessage';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
@@ -30,6 +31,18 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('tickets.index')}
+                                    active={route().current('tickets.*')}
+                                >
+                                    Tickets
+                                </NavLink>
+                                <Link
+                                    href={route('tickets.create')}
+                                    className="ms-4 self-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-500"
+                                >
+                                    New Ticket
+                                </Link>
                             </div>
                         </div>
 
@@ -134,6 +147,15 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('tickets.index')}
+                            active={route().current('tickets.*')}
+                        >
+                            Tickets
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('tickets.create')}>
+                            New Ticket
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
@@ -170,7 +192,12 @@ export default function AuthenticatedLayout({ header, children }) {
                 </header>
             )}
 
-            <main>{children}</main>
+            <main>
+                <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+                    <FlashMessage />
+                </div>
+                {children}
+            </main>
         </div>
     );
 }
